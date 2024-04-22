@@ -29,8 +29,6 @@ function DisplayUsers() {
   let ctx = use(UserContext);
   let users = [];
 
-  console.log(ctx.users);
-
   if (ctx.users.length > 0) {
     users = ctx.users;
   } else {
