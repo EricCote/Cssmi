@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import useLocalStorage from './useLocalStorage';
 
 export default function Compteur({ incr }) {
-  const [nombre, setNombre] = useState(0);
+  const [nombre, setNombre] = useLocalStorage(0, `compteur${incr}`);
 
   function click() {
     //la fonction setState cédule une modification de l'état et un re-render

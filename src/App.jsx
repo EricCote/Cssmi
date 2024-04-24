@@ -11,7 +11,7 @@ import {
   createBrowserRouter,
   useMatches,
 } from 'react-router-dom';
-import { StrictMode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserContext from './usersProviders';
 import Contacts from './EffectsContacts/Contacts';
 import Contact from './contacts/Contact';
@@ -47,10 +47,19 @@ const router = createBrowserRouter([
 
 function Root() {
   let matches = useMatches();
+  const t = matches[matches.length - 1].handle?.title;
   useEffect(() => {
-    const t = matches[matches.length - 1].handle?.title;
     if (t) document.title = t;
   });
+
+  useEffect(() => {
+    console.log(`On navige vers la page ${t}`);
+    return () => {
+      console.log(`On quitte la page ${t}`);
+    };
+  });
+
+  console.log('test!');
 
   return (
     <>
@@ -66,10 +75,8 @@ export default function App() {
   const [users, setUsers] = useState([]);
 
   return (
-    <StrictMode>
-      <UserContext.Provider value={{ users, setUsers }}>
-        <RouterProvider router={router} />
-      </UserContext.Provider>
-    </StrictMode>
+    <UserContext.Provider value={{ users, setUsers }}>
+      <RouterProvider router={router} />
+    </UserContext.Provider>
   );
 }
